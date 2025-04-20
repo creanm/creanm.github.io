@@ -1,0 +1,51 @@
+/* --------------- common reset --------------- */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    background:black;
+    color:white;
+    font:italic 16px "Lucida Console","Courier New",monospace;
+    font-weight: bold;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* --------------- NEW container -------------- */
+#poem-container{
+    position:fixed;          /* relative to the viewport             */
+    left:0vw; top:6vh;     /* 10 % away from top & left             */
+    width:80vw; height:85vh; /* box is 70 % of viewport in each axis  */
+    overflow:hidden;         /* clip anything that leaks outside      */
+  /*   border:2px solid #ccc;   optional visual frame                 */
+}
+
+/* poem lines are positioned *inside* the box */
+.poem-line{
+    position:absolute;
+    max-width:100%;          /* keep lines in the box                 */
+    line-height:1.6;
+    transition:opacity .5s;
+}
+.hidden{opacity:0;}
+
+.line-link{color:rgb(251, 217, 230);cursor:pointer;}
+.line-link:hover{color:#000;}
+
+.connecting-line{
+    position:absolute;
+    background:#f807c8;          /* your pink */
+    height:0.4px;
+    transform-origin:0 0;
+    pointer-events:none;
+    z-index:0;
+
+    /* ---- animation ---- */
+    width:0;                     /* starts at 0 */
+    transition: width 1200ms ease-out;  /* duration & curve */
+}
+
+@media (max-width: 768px) {
+    .poem-line {
+        font-size: 1.2rem;
+        max-width: 90%;
+    }
+} 

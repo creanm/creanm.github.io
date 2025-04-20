@@ -1,0 +1,120 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        
+        <title>a mountain, a climb between night and day</title>
+        
+       <!--  <script defer="defer" src="/static/js/main.4148c621.js"></script> -->
+
+       <!-- <link href="/static/css/main.3f55d2cd.css" rel="stylesheet">> -->
+
+       <style>
+
+        .video-container {
+            align-items: center;
+            background-color: #fff;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            left: 0;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            z-index: -1
+        }
+
+        .background-video {
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            object-fit: cover;
+            position: absolute;
+            z-index: -2;
+        }
+
+        div {
+            margin: 0;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center; 
+        }
+
+       h3 {
+        color: black;
+        font-style: italic;
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-size: 16px;
+        padding: 2px;
+
+        z-index: -1;
+
+        filter: blur(50px);
+	    cursor: zoom-in;
+	    transition: filter 5s;
+        }
+      
+    body {
+	padding: 1rem 2rem;
+	background-color: black;
+	color: white;
+    }
+
+
+    p:hover, blockquote:hover, pre:hover, ol:hover, li:hover, text:hover, h2:hover, h3:hover, img:hover {
+	filter: blur(0px);
+    }
+
+    a:link { text-decoration: none; color: red; } 
+    a:visited { text-decoration: none; color: #ae0404;} 
+    a:hover { text-decoration: none; } 
+    a:active { text-decoration: none; }
+
+    .hover-text       { color:#ae0404; transition:color .3s; text-decoration:none; }
+    .hover-text:hover { color:red; filter:blur(50px); cursor:grab; transition:filter 1s; }
+    .hover-text:active{ cursor: grabbing; }
+
+    text {
+        opacity: 0;
+        animation: fadeIn 20s forwards;
+        color: black;
+        font-style: italic;
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-size: 16px;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+       </style>
+    
+    </head>
+        
+        <body>
+            <noscript>You need to enable JavaScript to run this app.</noscript>
+
+            <video class="background-video" muted autoplay loop>
+                <source src="images/approachShore.mp4" type="video/mp4" >
+              </video> 
+    
+              <text> 
+                wet his hands in the dew 
+                <span class="hover-text" onclick="addItemAt(4,'of the new')">of the new</span>
+                morning <br>
+                and washed the stains of past life from his face. <br>
+                <a href="micah_scratchFrontPortal.html"> *** </a>
+              </text> 
+           
+              <script src="dante_javascript.js"></script>
+        </body>
+        </html>
+
+
+  

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>a mountain</title>
+
+  <!-- jQuery for the toggle -->
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $(function () {
+      $("#visible").on("click", function () {
+        $("#invisible").toggleClass("show");      // toggles visibility
+      });
+    });
+  </script>
+
+  <style>
+    /* ---------- helpers ---------- */
+    .hide { display: none; }                      /* start hidden            */
+    .show {                                       /* when toggled “on”       */
+      display: inline-block;
+      margin-left: 0.8rem;                       /* space to the right of * */
+    }
+
+    /* ---------- background video ---------- */
+    .background-video {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    /* ---------- centred hero block ---------- */
+    .hero {
+      position: absolute;
+      top: 53%;
+      left: 49.2%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      margin: 0;
+    }
+
+    /* ---------- asterisk + toggle sentence ---------- */
+    .div2 {
+      position: absolute;
+      top: 88.4%;
+      left: 37.7%;
+      cursor: alias;
+      white-space: nowrap;          /* keep * and sentence on one line   */
+    }
+    #visible {                       /* the asterisk itself               */
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* ---------- typography / misc ---------- */
+    body { background:#000; color:#fff; margin:0; }
+
+    text {
+      color:#000;
+      font-style:italic;
+      font-family:"Lucida Console","Courier New",monospace;
+      font-size:16px;
+    }
+
+    /* poem under “I” – blurred until hover */
+    .textSearch       { filter:blur(50px); cursor:zoom-in; transition:filter 1s; }
+    .textSearch:hover { filter:blur(0); }
+
+    .spanI { font-size:20px; }
+    p      { font-size:20px; }
+
+    .hover-text       { color:#ae0404; transition:color .3s; text-decoration:none; }
+    .hover-text:hover { color:red; filter:blur(50px); cursor:grab; transition:filter 1s; }
+    .hover-text:active{ cursor: grabbing; }
+
+    a         { text-decoration:none; color:#c5e5fa; }
+    a:visited { color:#99d3fa; }
+  </style>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <video class="background-video" muted autoplay loop>
+    <source src="images/mountain_DreamMachineLoop_40per_720p.mp4" type="video/mp4" />
+  </video>
+
+  <!-- centred block -->
+  <div class="hero">
+    <span class="spanI">I</span><br />
+    <a href="hereIsWhatYouSeek.html">
+      <text class="textSearch">
+        a mountain,<br />
+        a climb between night and day,<br />
+        a state of change,<br />
+        between darkness and light
+      </text>
+    </a><br />
+    <span style="font-size:x-large"><a href="hereIsWhatYouSeek.html">^</a></span>
+  </div>
+
+<!-- asterisk + sentence -->
+<div class="div2">
+  <p id="visible">*</p>
+  <text id="invisible" class="hide" style="color:white">
+    following the footsteps of&nbsp;
+    <span class="hover-text"
+          onclick="addItemAt(0,'the guide’s')">the guide</span>
+          <br>
+          <a href="hereIsWhatYouSeek.html">__</a>
+
+  </text>
+</div>
+
+
+  <script src="dante_javascript.js"></script>
+</body>
+</html>
+
+<!--  this would go right under 'the guide' inside the text block for testing. 
+      Try clearing Local Storage if inventory.html won't open after clicking 'the guide' -->
+      <!--  
+    <br>
+    <span id="door" onclick="openInventory()">→ inventory</span>
+    <span id="msg"></span>
+    -->

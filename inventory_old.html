@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your items</title>
+<style>
+body{background:#000;color:#0f0;font-family:monospace;padding:2rem}
+button{background:#000;color:#0f0;font-family:monospace;padding:.5rem}
+</style>
+</head>
+<body>
+<h2>Inventory</h2>
+<ul id="list"></ul>
+
+<!-- modal backdrop -->
+<div id="modal"
+     style="position:fixed; inset:0; background:rgba(0,0,0,.5);
+            display:none; align-items:center; justify-content:center;">
+
+  <div style="background:#111; padding:1rem 2rem; border:1px solid #444;
+              font-family:monospace; color:#0f0;">
+    <span id="modalText">Clear your inventory?</span><br><br>
+    <button id="yesBtn">yes</button>
+    <button id="noBtn">no</button>
+  </div>
+</div>
+
+<button id="resetBtn" style="margin-top:1rem;">🗑️ clear inventory</button>
+
+<button id="resetBtn"  style="margin-top:1rem;">🗑️ clear inventory</button>
+
+<!-- ‑‑‑‑‑ NEW: “footsteps …” button –‑‑‑‑‑ -->
+<button id="guideBtn"
+        style="margin-top:.5rem; display:none;">footsteps of the guide</button>
+
+<script>
+    /* ------------------- constants ------------------- */
+    const STORAGE_KEY   = "pickedUpItems";   // the array itself
+    const MODE_KEY      = "inventoryMode";   // optional flag: "imagination"
+    
+    /* ------------------- imagination / inventory labels -------------- */
+    const imaginationMode = localStorage.getItem(MODE_KEY) === "imagination";
+    
+    /* swap heading, button‑label and modal sentence if in imagination mode */
+    if (imaginationMode) {
+      document.querySelector("h2").textContent             = "Imagination";
+      document.getElementById("resetBtn").textContent      = "clear imagination";
+      document.getElementById("modalText").textContent     = "Clear your imagination?";
+    }
+    
+    /* ------------------- render the list ------------------------------ */
+    function renderList() {
+      const ul = document.getElementById("list");
+      ul.innerHTML = "";
+    
+      const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    
+      if (items.length === 0 || items.every(i => i === "__")) {
+        ul.textContent = "(nothing yet)";
+        return;
+      }
+    
+      items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        ul.appendChild(li);
+      });
+    }
+    
+    /* run once on load */
+    renderList();
+    
+    /* ------------------- modal (clear / reset) ------------------------ */
+    const modal    = document.getElementById("modal");
+    const resetBtn = document.getElementById("resetBtn");
+    const yesBtn   = document.getElementById("yesBtn");
+    const noBtn    = document.getElementById("noBtn");
+    
+    /* open the confirmation dialog */
+    resetBtn.addEventListener("click", () => modal.style.display = "flex");
+    
+    /* confirm clear */
+    yesBtn.addEventListener("click", () => {
+      localStorage.removeItem(STORAGE_KEY);    // wipe items
+      localStorage.removeItem(MODE_KEY);       // also remove imagination flag
+      renderList();
+      modal.style.display = "none";
+    
+      /* restore default labels after clearing imagination */
+      if (imaginationMode) {
+        document.querySelector("h2").textContent        = "Inventory";
+        resetBtn.textContent                            = "🗑️ clear inventory";
+        document.getElementById("modalText").textContent = "Clear your inventory?";
+      }
+    });
+    
+    /* cancel clear */
+    noBtn.addEventListener("click", () => modal.style.display = "none");
+    
+    /* keep list up‑to‑date when another tab changes the storage */
+    window.addEventListener("storage", e => {
+      if (e.key === STORAGE_KEY) renderList();
+    });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+
+<html>
+	<head>
+		<!-- <meta charset="UTF-8"> -->
+		<title> Yours </title>
+		<!-- <link rel="stylesheet" href="jenGrid.css"> -->
+        
+		<style> 
+
+        .background-img {
+            align-items: center;
+            position: absolute;
+            display: flex;
+            overflow: hidden;
+            justify-content: center;
+            height: 100vh;
+            width: 80%;
+            top: 0;
+            left: 5%;
+            z-index: -1
+        }
+
+        body {
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 16px;
+            background-color: black; 
+            color:white;
+        }
+
+		div {
+            margin: 0;
+            position: absolute;
+            top: 75%;
+            left: 25%;
+            
+		}
+
+        button {
+            border: none;
+            outline: none;
+            background: none;
+        }
+
+        .formPlace {
+            display:inline-block;
+            margin: auto;
+            padding: 40px; 
+            z-index: 1; /* or higher */ 
+        }
+
+        p {
+            text-wrap: wrap;
+            margin-block-end: 1em;
+            inline-size: 60ch;
+        }
+
+        
+		</style>
+		
+	</head>
+		
+	<body>
+        <img class="background-img" src="images/dreamMountain_SuzanneTreister_NoButton_900.jpg">
+      
+        <div class="formPlace">
+            <button id="submitButton" type="button"><img src="images/button_yellow.2.jpg"></button>
+          <input type="text" id="myInput" placeholder="Enter text here">
+          <p id="output"></p>
+        </div>
+
+      
+        <!-- script should go AFTER the HTML elements, just inside body tag -->
+        <script>
+            const inputField = document.getElementById('myInput');
+            const outputElement = document.getElementById('output');
+            const submitBtn = document.getElementById('submitButton');
+          
+            submitBtn.addEventListener('click', function() {
+              outputElement.textContent = 'Try again. There is no way to know if you are dreaming, bc you said ' + inputField.value;
+            });
+          </script>
+        
+      </body>
+
+</html>
+
+<!-- transform: translate(-50%, -50%); -->
+
+

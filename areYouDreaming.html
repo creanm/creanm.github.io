@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>are you dreaming?</title>
+
+  <style>
+    /* background image – unchanged */
+    .background-img{
+      position:absolute; inset:0 10% 0 5%;
+      object-fit:cover; z-index:-1;
+    }
+
+    body{
+      font-family:"Lucida Console","Courier New",monospace;
+      font-size:16px;  background:#000; color:#fff; margin:0;
+      display:flex; align-items:end; height:100vh;
+    }
+
+    /* one flex row that holds BOTH boxes */
+    .row{display:flex; gap:2.5rem; margin-left:25%; margin-bottom:7%;}
+
+    .box{
+      display:flex; align-items:center; gap:.65rem;
+    }
+    button{border:none;background:none;cursor:pointer}
+    input{
+      width:190px; padding:.35rem .45rem;
+      background:#111; color:#fff; border:1px solid #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <img class="background-img"
+       src="images/dreamMountain_SuzanneTreister_NoButton_900.jpg">
+
+  <!-- ░░ two input/button pairs ░░ -->
+  <div class="row">
+
+    <!-- left: “dream” -->
+    <div class="box">
+      <button id="dreamBtn">
+        <img src="images/button_yellow.2.jpg" alt="enter">
+      </button>
+      <input id="dreamInput"  placeholder="enter text here (maybe yes)">
+    </div>
+
+    <!-- right: “imagination” -->
+    <div class="box">
+      <button id="imagBtn">
+        <img src="images/button_yellow.2.jpg" alt="enter">
+      </button>
+      <input id="imagInput" placeholder="enter text here (maybe no)">
+    </div>
+
+  </div>
+
+  <script>
+  /* --------------- left button ---------------- */
+  document.getElementById("dreamBtn").onclick = () =>{
+      const v = document.getElementById("dreamInput").value.trim();
+      if(v) location.href = "meanderingPath.html";
+  };
+
+  /* --------------- right button --------------- */
+  document.getElementById("imagBtn").onclick = () =>{
+      const v = document.getElementById("imagInput").value.trim();
+      if(!v) return;
+
+      /* flag for inventory page */
+      localStorage.setItem("inventoryMode","imagination");
+
+      /* open / focus the pop‑up on the right edge */
+      const w=300,h=screen.height, left=screen.width-w;
+      const inv = window.open(
+          "inventory.html","inventoryWindow",
+          `width=${w},height=${h},left=${left},top=0,`+
+          "scrollbars=yes,resizable=no,toolbar=no");
+      if(inv) inv.focus();
+  };
+  </script>
+</body>
+</html>

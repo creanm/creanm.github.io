@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html>
+<head>	
+<title> top right </title>
+
+<style>
+
+.container {
+		  background-color: #f1f1f1;
+		 padding: 100px;
+		  font-family: "Lucida Console", "Courier New", monospace;
+		  font-size: 16px;
+		 display: flex; 
+		  align-items: center; 
+		 justify-content: center; 
+		  text-align: center; 
+	}
+	
+.hover-text       { color:#ae0404; transition:color .3s; text-decoration:none; }
+.hover-text:hover { color:red; filter:blur(50px); cursor:grab; transition:filter 1s; }
+.hover-text:active{ cursor: grabbing; } 
+
+</style>	
+</head>
+
+	<body>
+
+		<div class="container">
+			
+			  what I have&nbsp;
+			  <span class="hover-text" onclick="addItemAt(2,'sketched')">sketched</span>
+		
+		  </div>
+		  
+		  <script src="dante_javascript.js"></script>
+	</body>
+
+</html>

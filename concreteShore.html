@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Concrete shore</title>
+
+<style>
+/* ------------------------------------------------------------------
+   Responsive masonry‑ish grid, but every cell keeps a 4 : 3 rectangle
+   ------------------------------------------------------------------ */
+
+/* ── 1.  the grid itself ─────────────────────────────────────────── */
+#shoreGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);   /* default = 4 cols        */
+    gap:0;                                 /* no gutters              */
+    width:100vw;
+}
+
+/* ≥ 1200 px → 5 columns */
+@media (min-width:1200px){
+  #shoreGrid{grid-template-columns:repeat(5,1fr)}
+}
+/* ≥ 1500 px → 6 columns */
+@media (min-width:1500px){
+  #shoreGrid{grid-template-columns:repeat(6,1fr)}
+}
+
+/* ── 2.  every *cell* keeps a 4:3 box – text or image  ───────────── */
+#shoreGrid > figure{
+    margin:0;
+    position:relative;
+    aspect-ratio:4/3;              /* 4 w × 3 h, regardless of size  */
+    overflow:hidden;               /* trims anything that spills     */
+    cursor:grab;                   /* (your drag‑n‑drop styling)     */
+}
+/* optional: change cursor while dragging */
+#shoreGrid > figure:active{cursor:grabbing}
+
+/* ── 3.  images fill their box without stretching  ───────────────── */
+#shoreGrid > figure > img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;              /* no distortion, centre‑crop     */
+}
+
+/* ── 4.  captions are centred overlay text  ‑‑ keep them legible  ── */
+#shoreGrid > figure > figcaption{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    padding:.5rem;
+    color:#000;
+    font:italic 16px/1 "Lucida Console","Courier New",monospace;
+    background:rgba(255,255,255,.7);   /* light mask so text readable */
+}
+
+.flex-column{
+  display:flex;
+  flex-direction:column;          /* stack the two lines        */
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+/* ---------- tiles ---------- */
+figure{margin:0;user-select:none;cursor:grab}
+figure:active{cursor:grabbing}
+
+img   {width:100%;height:100%;object-fit:cover;display:block}
+
+figcaption{
+  display:flex;align-items:center;justify-content:center;
+  font:16px/1.4 "Lucida Console","Courier New",monospace;
+  color:#000;text-align:center;padding:.5rem
+}
+
+/* ---------- link / hover colours ---------- */
+a:link,a:visited{color:red;text-decoration:none}
+.hover-text      {color:#ae0404;transition:.3s}
+.hover-text:hover{color:red;filter:blur(2px)}
+.hover-text:active{cursor:grabbing}
+</style>
+</head>
+<body>
+
+<section id="shoreGrid">
+
+  <!-- column‑1 captions -->
+  <figure draggable="true" data-id="txt1">
+    <figcaption>We moved to the<br>deserted strand</figcaption>
+  </figure>
+
+  <!-- nine draggable images -->
+  <figure draggable="true" data-id="1"><img src="images/mz_1.jpg"></figure>
+  <figure draggable="true" data-id="2"><img src="images/mz_2.jpg"></figure>
+  <figure draggable="true" data-id="3"><img src="images/mz_3.jpg"></figure>
+
+  <figure draggable="true" data-id="txt2">
+    <figcaption>which had never seen&nbsp;a&nbsp;man</figcaption>
+  </figure>
+
+  <figure draggable="true" data-id="4"><img src="images/mz_4.jpg"></figure>
+  <figure draggable="true" data-id="5"><img src="images/mz_5.jpg"></figure>
+  <figure draggable="true" data-id="6"><img src="images/mz_6.jpg"></figure>
+
+  <figure draggable="true" data-id="txt3">
+    <figure>
+        <figcaption class="flex-column">
+            <br>    <br> 
+          who&nbsp;found <span class="hover-text" onclick="addItemAt(3,'the way')">the&nbsp;way</span>
+          back&nbsp;to&nbsp;dry&nbsp;land.
+        </figcaption>
+      </figure>
+  </figure>
+
+  <figure draggable="true" data-id="7"><img src="images/mz_7.jpg"></figure>
+  <figure draggable="true" data-id="8"><img src="images/mz_8.jpg"></figure>
+  <figure draggable="true" data-id="9"><img src="images/mz_9.jpg"></figure>
+
+  <!-- three red asterisks (also draggable) -->
+  <figure draggable="true" data-id="ast1">
+    <figcaption><a href="approachShore.html" style="color:red">***</a></figcaption>
+  </figure>
+  <figure draggable="true" data-id="ast2">
+    <figcaption><a href="approachShore.html" style="color:red">***</a></figcaption>
+  </figure>
+  <figure draggable="true" data-id="ast3">
+    <figcaption><a href="approachShore.html" style="color:red">***</a></figcaption>
+  </figure>
+  <figure draggable="true" data-id="ast3">
+    <figcaption><a href="approachShore.html" style="color:red">***</a></figcaption>
+  </figure>
+</section>
+
+
+
+
+<script src="dante_javascript.js"></script>
+<script>
+(() => {
+
+  const grid       = document.getElementById("shoreGrid");
+  const IMAGE_IDS  = ["1","2","3","4","5","6","7","8","9"];
+  let draggedFig   = null;
+
+  /* ---------- helpers ------------------------------------------------- */
+  function swapDOM(a, b){
+    const ph = document.createElement("div"); // placeholder
+    a.replaceWith(ph);
+    b.replaceWith(a);
+    ph.replaceWith(b);
+  }
+
+  /* ---------- DnD events ---------------------------------------------- */
+  grid.addEventListener("dragstart", ev => {
+    draggedFig = ev.target.closest("figure");
+    if (!draggedFig) return;
+    ev.dataTransfer.effectAllowed = "move";
+    ev.dataTransfer.setData("text/plain","x");    // Firefox quirk
+  });
+
+  grid.addEventListener("dragover", ev => {
+    if (ev.target.closest("figure")) ev.preventDefault();
+  });
+
+  grid.addEventListener("drop", ev => {
+    const dropFig = ev.target.closest("figure");
+    if (!draggedFig || !dropFig || draggedFig === dropFig) return;
+    ev.preventDefault();
+
+    swapDOM(draggedFig, dropFig);
+    draggedFig = null;
+    setTimeout(checkSolved, 0);                   // after re‑flow
+  });
+
+  /* ---------- success detection --------------------------------------- */
+  function checkSolved(){
+    /* 1. grab the nine picture tiles */
+    const data = IMAGE_IDS.map(id =>
+      ({ id,
+         el  : document.querySelector(`figure[data-id="${id}"]`)
+      })
+    );
+    if (data.some(d => !d.el)) return;            // something missing
+
+    /* 2. get their rects */
+    data.forEach(d => d.rect = d.el.getBoundingClientRect());
+
+    /* 3. sort by Y (row) then X (col) */
+    data.sort((a,b)=>{
+      if (Math.abs(a.rect.top - b.rect.top) > 12)   // row diff > tolerance
+        return a.rect.top - b.rect.top;
+      return a.rect.left - b.rect.left;             // same row → by col
+    });
+
+    /* 4. group into rows */
+    const rows = [];
+    data.forEach(d=>{
+      if (!rows.length ||
+          Math.abs(d.rect.top - rows[rows.length-1][0].rect.top) > 12){
+        rows.push([d]);           // new row
+      } else {
+        rows[rows.length-1].push(d);
+      }
+    });
+
+    if (rows.length !== 3 || rows.some(r => r.length !== 3)) return;
+
+    /* 5. flatten row‑major and compare ids */
+    const order = rows.flat().map(d => d.id);
+    const solved = IMAGE_IDS.every((id,i) => id === order[i]);
+
+    if (solved) location.href = "approachShore.html";
+  }
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>am I</title>
+<style>
+
+.container {
+  display: grid;
+  column-gap: 5px;
+  row-gap: 5px;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  background-color: white; <!-- also interesting as black -->
+  padding: 10px;
+}
+
+.container > div {
+  background-color: #f1f1f1;
+  border: 1px solid black;
+  padding: 5px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 20px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+}
+
+.img {
+  width: 100%;
+  height: auto;
+}
+
+.hover-text { 
+    color: black; /* Default text color */ 
+    transition: color 0.3s; /* Smooth transition */ 
+} 
+ 
+.hover-text:hover { 
+  color: red; /* Color on mouseover */ 
+  
+} 
+
+</style>
+</head>
+
+<body>
+
+
+<div class="container">
+  <div name="div1"> <iframe src="micahWriteBackPortal.html" title="" name="div1" width="100%" height="225px"  frameborder="0"> </iframe> </div>
+  <div name="div2"><iframe src="2.html" title="" name="div2" width="100%" height="225px"  frameborder="0"> </iframe></div>
+  <div name="div3"> </div>
+  <div name="div4"><iframe src="4.html" title="" name="div4" width="100%" height="225px"  frameborder="0"> </iframe> </div>
+  <div name="div5"> <iframe src="micah_outCementPortal_gridCenter.html" title="" name="div5" width="100%" height="400px"  frameborder="0"> </iframe> </div>
+  <div name="div6"><iframe src="6.html" title="" name="div6" width="100%" height="225px"  frameborder="0"> </iframe></div>  
+  <div name="div7">  </div> 
+  <div name="div8"> <iframe src="8.html" title="" name="div8" width="100%" height="225px"  frameborder="0"> </iframe></div>
+  <div name="div9"> <iframe src="stepUpGif.html" title="" name="div9" width="100%" height="225px"  frameborder="0"> </iframe> </div>
+</div>
+
+</body>
+
+</html>
+
+<!-- div3 and div7 need to be iframes, pulling in webpages to be targeted by center image
+
+<iframe src="06_micah.html" width="100%" height="100%" frameborder="0"> -->
+  <!-- text-align: center; -->
+  <!-- or -->
+ <!--  display: flex; -->
+  <!--  align-items: center; -->
+  <!-- background-color: white; also intereting -->
